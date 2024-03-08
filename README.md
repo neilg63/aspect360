@@ -66,9 +66,9 @@ if let Some(aspect_match) = aspect_match_opt {
 
 #### Instance Methods
 
-- *aspect()-> f64*  The aspect of the two angle irrespective of whether they match.
+- *aspect()-> f64*  The aspect of the two angle irrespective of whether they match or not.
 - *distance()-> f64*  Angular distance from the target aspect
-- *target()-> f64*  Target aspect angle, which is always symmetrical, e.g. 90º will match ±90 or ±270
+- *target()-> f64*  Target aspect, which is always symmetrical, e.g. 90º will match ±90 or ±270
 - *matched()-> bool*  True if the angles are aspected with the target within the specified orb.
 - *orb() -> f64* The tolerance of the aspect match
 
