@@ -1,5 +1,7 @@
 pub use ring360::*;
 
+/// Defines an aspect result
+/// All angle pairs have an aspect, but only some match the target within the specified orb (± tolerance)
 #[derive(Debug, Clone, Copy)]
 pub struct AspectResult(pub f64, pub f64, pub f64, pub bool, pub f64);
 
@@ -40,6 +42,8 @@ impl AspectResult {
   }
 }
 
+/// Defines a target aspect with its orb (± tolerance). Used with the find_aspect() method defined in Aspect360
+/// All aspects are symmetrical e.g. 120º will also match 240º or -120º
 #[derive(Debug, Clone, Copy)]
 pub struct AspectOrb(pub f64, pub f64);
 
@@ -54,6 +58,7 @@ impl AspectOrb {
     }
 }
 
+/// Provides method to calculate aspect matches from f64 values cast to Ring360 with a target aspect and orb (± tolerance)
 pub trait Aspect360 {
 
   /// Calculate an aspect result with a symmetrical flag (i.e. if false may only be the ± target, 90º => ±90º)
@@ -85,6 +90,7 @@ pub trait Aspect360 {
   }
 }
 
+/// Implement only the core calc_aspect() method from which all other extension methods derive
 impl Aspect360 for Ring360 {
 
   /// Calculate an aspect result with a symmetrical flag (i.e. if false may only be the ± target, 90º => ±90º)
