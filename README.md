@@ -85,7 +85,7 @@ A simple tuple struct with the target aspect and an orb, both 64-bit floats.
 
 ### Aspect360
 
-This is implemented only for *Ring360* which can be converted from 
+This trait is implemented only for *Ring360*, but any 64-bit float can be cast to a Ring360 via the *.to_360()* extension method and variant methods ending in *_f64* accept normal f64 values as comparison angles, which will be normalised within the 0º to º360 range.
 
 - *calc_aspect(other: &Ring360, target: f64, orb: f64) -> AspectResult*
 - *is_aspected(other: &Ring360, target: f64, orb: f64) -> bool* 
