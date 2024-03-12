@@ -53,13 +53,13 @@ let aspect_match_opt = angle_1.find_aspect(&angle_2, &targets);
 if let Some(aspect_match) = aspect_match_opt {
 
   println!(
-    "{:.6}º and  {:.6}º have an an aspect match of {:.6}º within {:.6}º",
+    "{:.6}º and  {:.6}º have an an aspect match of {:.0}º within {:.6}º",
     angle_1,
     angle_2,
     aspect_match.target(),
     aspect_match.distance(),
   );
-  // Should read: 98.202928º and  249.325729º have an an aspect match of 150.000000º within 1.122801º
+  // Should read: 98.202928º and  249.325729º have an an aspect match of 150º within 1.122801º
 }
 ```
 
