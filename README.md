@@ -42,9 +42,11 @@ let angle_1 = lng_1.to_360();
 let angle_2 = lng_2.to_360();
 
 let targets = [
-  AspectOrb(90.0, 5.0),
-  AspectOrb(120.0, 2.0),
-  AspectOrb(150.0, 2.0)
+  AspectOrb(0.0, 8.0), // conjunction
+  AspectOrb(90.0, 5.0), // square
+  AspectOrb(120.0, 3.0), // trine
+  AspectOrb(150.0, 2.0), // quincunx
+  AspectOrb(180.0, 4.0) // opposition
 ];
 
 let aspect_match_opt = angle_1.find_aspect(&angle_2, &targets);
@@ -95,4 +97,4 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 
 ### Dev notes
 
-This is alpha release.
+This is an alpha release.
