@@ -21,22 +21,27 @@ impl AspectResult {
     AspectResult(angle, target, distance, in_range, orb)
   }
 
+  /// aspect between two angles
   pub fn aspect(&self) -> f64 {
     self.0
   }
 
+  /// target aspect between two angles
   pub fn target(&self) -> f64 {
     self.1
   }
 
+  /// distance between the true aspect and the target
   pub fn distance(&self) -> f64 {
     self.2
   }
 
+  /// does the aspect distance from the target fall within the specified range (orb)
   pub fn matched(&self) -> bool {
     self.3
   }
 
+  /// ± tolerance or range for a valid match
   pub fn orb(&self) -> f64 {
     self.4
   }
@@ -49,13 +54,15 @@ pub struct AspectOrb(pub f64, pub f64);
 
 impl AspectOrb {
 
-    pub fn target(&self) -> f64 {
-        self.0
-    }
+  /// target aspect
+  pub fn target(&self) -> f64 {
+      self.0
+  }
 
-    pub fn orb(&self) -> f64 {
-        self.1
-    }
+  /// ± tolerance or orb for a valid match
+  pub fn orb(&self) -> f64 {
+      self.1
+  }
 }
 
 /// Provides method to calculate aspect matches from f64 values cast to Ring360 with a target aspect and orb (± tolerance)
@@ -64,6 +71,7 @@ pub trait Aspect360 {
   /// Calculate an aspect result with a symmetrical flag (i.e. if false may only be the ± target, 90º => ±90º)
   fn calc_aspect(&self, other: &Ring360, target: f64, orb: f64) -> AspectResult;
 
+  /// find the best first matching apsect. If no aspects fall within the specified orbs, None will be returned
   fn find_aspect(&self, other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> {
     for aspect_orb in targets {
         let aspect = self.calc_aspect(other, aspect_orb.target(), aspect_orb.orb());
