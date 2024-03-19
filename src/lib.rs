@@ -31,9 +31,14 @@ impl AspectResult {
     self.1
   }
 
-  /// distance between the true aspect and the target
+  /// distance between the true aspect and the target, may be negative or positive depending on the direction
   pub fn distance(&self) -> f64 {
     self.2
+  }
+
+  /// absolute distance between the true aspect and the target. May only be positive
+  pub fn divergence(&self) -> f64 {
+    self.2.abs()
   }
 
   /// does the aspect distance from the target fall within the specified range (orb)
@@ -71,7 +76,9 @@ pub trait Aspect360 {
   /// Calculate an aspect result with a symmetrical flag (i.e. if false may only be the ± target, 90º => ±90º)
   fn calc_aspect(&self, other: &Ring360, target: f64, orb: f64) -> AspectResult;
 
-  /// find the best first matching apsect. If no aspects fall within the specified orbs, None will be returned
+  /// find the first matched aspect. If no aspects fall within the specified orbs, None will be returned
+  /// This method is faster than calling find_best_aspect, as it will return first matched target aspect and not evaulate any others
+  /// It's preferable to find_best_aspect where 
   fn find_aspect(&self, other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> {
     for aspect_orb in targets {
         let aspect = self.calc_aspect(other, aspect_orb.target(), aspect_orb.orb());
@@ -80,6 +87,31 @@ pub trait Aspect360 {
         }
     }
     None
+  }
+
+  /// find all matching aspects, where they may potentially overlap
+  fn find_aspects(&self, other: &Ring360, targets: &[AspectOrb]) -> Vec<AspectResult> {
+    let mut matched_aspects: Vec<AspectResult> = Vec::new();
+    for aspect_orb in targets {
+        let aspect = self.calc_aspect(other, aspect_orb.target(), aspect_orb.orb());
+        if aspect.matched() {
+          matched_aspects.push(aspect);
+        }
+    }
+    matched_aspects
+  }
+
+  /// Find the nearest matching aspect, if two aspects could potentially overlap.
+  /// The method will return the nearest aspect wrapped in a Some Option.
+  /// If no aspects fall within the specified orbs, None will be returned
+  fn find_best_aspect(&self, other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> {
+    let mut matched_aspects = self.find_aspects(other, targets);
+    if matched_aspects.is_empty() {
+      None
+    } else {
+      matched_aspects.sort_by(|a, b| a.divergence().partial_cmp(&b.divergence()).unwrap());
+      matched_aspects.first().map(|ar| *ar)
+    }
   }
 
   /// Calculate an aspect from a normal f64 value representing a degree
