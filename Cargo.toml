@@ -1,9 +1,9 @@
 [package]
 name = "aspect360"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 description = "This builds on the Ring360 to calculate aspect matches from target angles with orbs or an array of target aspect/orb pairs."
-repository = "https://github.com/neilg63/ring360"
+repository = "https://github.com/neilg63/aspect360"
 categories = ["mathematics"]
 license = "GPL-2.0-or-later WITH Bison-exception-2.2"
 

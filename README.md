@@ -142,4 +142,4 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 
 ### Dev notes
 
-This is an alpha release. Since version 0.1.4 the latest version of Ring360 is always supported and two new methods find_aspects() and find_best_aspects() deal with situations where aspect definitions (AspectOrb) may overlap.
+This is an alpha release. Version 0.1.4 introduced two new methods find_aspects() and find_best_aspect() deal with situations where aspect definitions (AspectOrb) may overlap.
