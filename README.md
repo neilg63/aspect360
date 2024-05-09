@@ -33,7 +33,7 @@ println!("{:.1}º and {:.1}º are {:.1}º apart, {:.1}º from the target aspect 
 /// Should read: 74.7º and 164.4º are 89.7º apart, -0.3 from the target aspect of 90.0º with an orb of 2.0. Match: true
 ```
 
-### Find the best aspect match from many options
+### Find the first aspect match from many options
 ```rust
 let lng_1 = 98.202928;
 let lng_2 = 249.325729;
@@ -137,7 +137,7 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 - *calc_aspect_f64(other: f64, target: f64, orb: f64) -> AspectResult*
 - *find_aspect(other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> 
 - *find_aspects(other: &Ring360, targets: &[AspectOrb]) -> Vec<AspectResult> 
-- *find_best_aspects(other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> 
+- *find_best_aspect(other: &Ring360, targets: &[AspectOrb]) -> Option<AspectResult> 
 - *is_aspected_f64(other: f64, target: f64, orb: f64) -> bool* 
 
 ### Dev notes
