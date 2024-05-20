@@ -4,7 +4,7 @@
 
 # aspect360: Calculate Aspects between two Angles
 
-This crate builds up on the *ring360* library to calculate aspects between two angles with a target aspect and orb or an array of aspect/orb pairs.
+This crate builds on the *ring360* library to calculate aspects between two angles with a target aspect and orb or an array of aspect/orb pairs.
 
 This crate re-exports *ring360*, so there is no need to install it separately.
 
@@ -142,4 +142,4 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 
 ### Dev notes
 
-This is an alpha release. Version 0.1.4 introduced two new methods find_aspects() and find_best_aspect() deal with situations where aspect definitions (AspectOrb) may overlap.
+Version 0.1.4 introduced two new methods find_aspects() and find_best_aspect() deal with situations where aspect definitions (AspectOrb) may overlap.
