@@ -73,18 +73,15 @@ However, when definitions overlap (e.g. a sextile is only around 8.57º away fro
   let angle_1 = lng_1.to_360();
   let angle_2 = lng_2.to_360();
 
-
-  let septile_degree = 360.0 / 7.0; // 51.42857142857143
-
   let targets = [
-    AspectOrb(30.0, 5.0), // semisextile
-    AspectOrb(45.0, 8.0), // semisquare
-    AspectOrb(septile_degree, 9.0), // septile
-    AspectOrb(60.0, 8.0), // sextile
-    AspectOrb(90.0, 8.0), // square
-    AspectOrb(120.0, 8.0), // trine
-    AspectOrb(150.0, 10.0) // quincunx
-  ];
+    (30.0, 5.0), // semisextile
+    (45.0, 8.0), // semisquare
+    (360.0 / 7.0, 9.0), // septile 360/7 = approx. 51.428571
+    (60.0, 8.0), // sextile
+    (90.0, 8.0), // square
+    (120.0, 8.0), // trine
+    (150.0, 10.0) // quincunx
+  ].to_aspect_orbs(); // will cast to a vector of AspectOrb structs
 
   let aspect_matches = angle_1.find_aspects(&angle_2, &targets);
   println!("{} aspects have been matched within the specified ranges", aspect_matches.len());
@@ -97,7 +94,7 @@ However, when definitions overlap (e.g. a sextile is only around 8.57º away fro
   println!("The first match is {}º from the target aspect of {}º", first_match.unwrap().divergence(), first_match.unwrap().target());
   // prints: The first match is 4.968955571428566º from the target aspect of 51.42857142857143º
 
-  // However, this best match is sextile and not septile, which would have been matched first
+  // However, the best match is sextile and not septile, which would have been matched first
   let best_aspect_match = angle_1.find_best_aspect(&angle_2, &targets);
   // Yields a sextile
   
@@ -143,3 +140,5 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 ### Dev notes
 
 Version 0.1.4 introduced two new methods find_aspects() and find_best_aspect() deal with situations where aspect definitions (AspectOrb) may overlap.
+
+Version 0.1.7 adds a new Trait ```ToAspectOrb``` witb a ```to_aspect_orbs``` method to convert an array of simple (f64, f64) tuples into a vetcor of AspectOrb() structs, reducing boilerplate code.

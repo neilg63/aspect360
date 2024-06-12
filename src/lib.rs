@@ -70,7 +70,7 @@ impl AspectOrb {
   }
 }
 
-/// Provides method to calculate aspect matches from f64 values cast to Ring360 with a target aspect and orb (± tolerance)
+/// Provides methods to calculate aspect matches from f64 values cast to Ring360 with a target aspect and orb (± tolerance)
 pub trait Aspect360 {
 
   /// Calculate an aspect result with a symmetrical flag (i.e. if false may only be the ± target, 90º => ±90º)
@@ -139,4 +139,16 @@ impl Aspect360 for Ring360 {
     AspectResult::calculate(target, angle, orb)
   }
 
+}
+
+/// Provide method to cast simple (f64, f64) tuples to a vetcor AspectOrb tuple structs
+pub trait ToAspectOrbs {
+  fn to_aspect_orbs(&self) -> Vec<AspectOrb>;
+}
+
+/// Provide method to cast arrays or vectors of (f64, f64) tuples to a vector of AspectOrb objects
+impl ToAspectOrbs for [(f64, f64)] {
+  fn to_aspect_orbs(&self) -> Vec<AspectOrb> {
+      self.into_iter().map(|(aspect, orb)| AspectOrb(*aspect, *orb)).collect()
+  }
 }

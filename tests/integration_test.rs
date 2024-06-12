@@ -3,7 +3,7 @@ use aspect360::*;
 
 #[cfg(test)]
 
-
+// Check that aspects are correctly calculated whether or not they fall within the defined range
 #[test]
 fn test_aspects() {
   let lng_1 = 98.202928;
@@ -28,6 +28,7 @@ fn test_aspects() {
   assert_eq!(aspect_3.matched(), false);
 }
 
+// Check that one of three aspect definitions is matched and has the expected value
 #[test]
 fn test_find_aspects() {
   let lng_1 = 98.202928;
@@ -52,6 +53,7 @@ fn test_find_aspects() {
 
 }
 
+// Check that the best aspect out of 7 options is matched
 #[test]
 fn test_best_aspects() {
   let lng_1 = 192.928202;
@@ -93,3 +95,19 @@ fn test_best_aspects() {
   assert_eq!(aspect_match.unwrap().target(), 60.0);
 
 }
+
+// Test simple arrays of f64 tuple pairs are converted to a vector of AspeciOrb objects
+#[test]
+fn test_aspect_orbs_converter() {
+  let aspect_orbs = [
+   (90.0, 4.0),
+   (120.0, 3.0),
+   (180.0, 4.0)
+  ].to_aspect_orbs();
+  let angle_1 = 97.9_f64.to_360();
+  let angle_2 = 217.1_f64.to_360();
+  let best_aspect = angle_1.find_best_aspect(&angle_2, &aspect_orbs);
+  // check an aspect has been matched and the best aspect target is 120.0 (trine)
+  assert_eq!(best_aspect.unwrap().target(), 120.0);
+}
+ 
