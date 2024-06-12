@@ -141,4 +141,4 @@ This trait is implemented only for *Ring360*, but any 64-bit float can be cast t
 
 Version 0.1.4 introduced two new methods find_aspects() and find_best_aspect() deal with situations where aspect definitions (AspectOrb) may overlap.
 
-Version 0.1.7 adds a new Trait ```ToAspectOrb``` witb a ```to_aspect_orbs``` method to convert an array of simple (f64, f64) tuples into a vetcor of AspectOrb() structs, reducing boilerplate code.
+Version 0.1.7 adds a new trait ```ToAspectOrb``` witb a ```to_aspect_orbs``` method to convert an array of simple (f64, f64) tuples into a vector of AspectOrb() structs for use with ```find_aspect()```, ```find_best_aspect()``` and ```find_aspects()```. This reduces boilerplate code.
