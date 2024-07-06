@@ -66,14 +66,14 @@ fn test_best_aspects() {
   let septile_degree = 360.0 / 7.0;
 
   let targets = [
-    AspectOrb(30.0, 5.0), // semisextile
-    AspectOrb(45.0, 8.0), // semisquare
-    AspectOrb(septile_degree, 9.0), // septile
-    AspectOrb(60.0, 8.0), // sextile
-    AspectOrb(90.0, 8.0), // square
-    AspectOrb(120.0, 8.0), // trine
-    AspectOrb(150.0, 10.0) // quincunx
-  ];
+    (30.0, 5.0), // semisextile
+    (45.0, 8.0), // semisquare
+    (septile_degree, 9.0), // septile
+    (60.0, 8.0), // sextile
+    (90.0, 8.0), // square
+    (120.0, 8.0), // trine
+    (150.0, 10.0) // quincunx
+  ].to_aspect_orbs();
 
   let aspect_matches = angle_1.find_aspects(&angle_2, &targets);
 

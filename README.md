@@ -8,17 +8,13 @@ This crate builds on the *ring360* library to calculate aspects between two angl
 
 This crate re-exports *ring360*, so there is no need to install it separately.
 
-### Add and subtract degree values
+### Calculate a single Aspect Match
 ```rust
-/// Cast two 64-bit floats to Ring360 values (re-exported from )
- let angle = 98.922.to_360();
-let angle_2 = 197.2938.to_360();
-let aspect_2 = angle.calc_aspect(&angle_2, 90.0, 2.0);
-println!("{:?}", aspect_2);
-
+/// Cast two 64-bit floats to Ring360 values 
 let angle_1 = 74.7.to_360(); 
 let angle_2 = 164.4.to_360();
 
+// calculate the aspect to ±90º within a 2º orb
 let result = angle_1.calc_aspect(&angle_2, 90.0, 2.0);
 
 println!("{:.1}º and {:.1}º are {:.1}º apart, {:.1}º from the target aspect of {:.1}º with an orb of {:.1}. Matched: {}",
@@ -41,13 +37,13 @@ let lng_2 = 249.325729;
 let angle_1 = lng_1.to_360();
 let angle_2 = lng_2.to_360();
 
+// List target aspect as pairs of target angles and orbs
 let targets = [
-  AspectOrb(0.0, 8.0), // conjunction
-  AspectOrb(90.0, 5.0), // square
-  AspectOrb(120.0, 3.0), // trine
-  AspectOrb(150.0, 2.0), // quincunx
-  AspectOrb(180.0, 4.0) // opposition
-];
+  (0.0, 8.0), // conjunction
+  (90.0, 5.0), // square
+  (120.0, 3.0), // trine
+  (180.0, 4.0) // opposition
+].to_aspect_orbs(); // cast the tuple pairs to a vector of AspectOrb structs
 
 let aspect_match_opt = angle_1.find_aspect(&angle_2, &targets);
 if let Some(aspect_match) = aspect_match_opt {
@@ -81,7 +77,7 @@ However, when definitions overlap (e.g. a sextile is only around 8.57º away fro
     (90.0, 8.0), // square
     (120.0, 8.0), // trine
     (150.0, 10.0) // quincunx
-  ].to_aspect_orbs(); // will cast to a vector of AspectOrb structs
+  ].to_aspect_orbs(); // cast to a vector of AspectOrb structs
 
   let aspect_matches = angle_1.find_aspects(&angle_2, &targets);
   println!("{} aspects have been matched within the specified ranges", aspect_matches.len());
@@ -116,7 +112,7 @@ However, when definitions overlap (e.g. a sextile is only around 8.57º away fro
 
 #### AspectOrb
 
-A simple tuple struct with the target aspect and an orb, both 64-bit floats.
+A simple tuple struct with the target aspect and an orb, both 64-bit floats. Any array or vector of tuple pairs with f64 values representing target angles and orbs can be converted to AspectOrb objects via ```to_aspect_orbs()```.
 
 ### Instance Methods
 
